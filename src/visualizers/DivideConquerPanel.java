@@ -1,21 +1,15 @@
 package visualizers;
 
-import managers.SessionManager;
-import managers.UserManager;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.*;
 import ui.AlgorithmModule;
 import ui.components.AlgorithmInfoPanel;
 import ui.components.RoundedButton;
 import utils.ThemeManager;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
-/**
- * Divide & Conquer Visualizer.
- * Modules: Tower of Hanoi | Binary Search | Merge Sort Tree
- */
 public class DivideConquerPanel extends JPanel implements AlgorithmModule {
 
     private final CardLayout cardLayout = new CardLayout();

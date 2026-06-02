@@ -1,5 +1,9 @@
 package visualizers;
 
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
+import javax.swing.*;
 import managers.SessionManager;
 import managers.UserManager;
 import ui.AlgorithmModule;
@@ -7,19 +11,10 @@ import ui.components.AlgorithmInfoPanel;
 import ui.components.RoundedButton;
 import utils.ThemeManager;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
 
-/**
- * Grid-based Pathfinding Visualizer.
- * Algorithms: BFS, DFS, Dijkstra, A*.
- * Click to place walls; right-click source/destination.
- */
 public class PathfindingVisualizerPanel extends JPanel implements AlgorithmModule {
 
-    // ── Cell states ───────────────────────────────────────────────────────────
+    
     private static final int EMPTY   = 0;
     private static final int WALL    = 1;
     private static final int START   = 2;

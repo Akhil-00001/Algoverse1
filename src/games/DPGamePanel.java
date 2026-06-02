@@ -10,10 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
-/**
- * Dynamic Programming Game Mode.
- * Tabs: Fibonacci DP | 0/1 Knapsack | LCS
- */
+
 public class DPGamePanel extends JPanel {
 
     public DPGamePanel() {

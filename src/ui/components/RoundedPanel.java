@@ -1,18 +1,16 @@
 package ui.components;
 
-import utils.ThemeManager;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
+import javax.swing.*;
+import utils.ThemeManager;
 
-/**
- * A JPanel with rounded corners, optional gradient background, and optional border.
- */
+
 public class RoundedPanel extends JPanel {
 
     private int    arc          = 16;
     private Color  bgColor;
-    private Color  bgColor2;        // null = solid, non-null = gradient
+    private Color  bgColor2;        
     private Color  borderColor  = null;
     private float  borderWidth  = 1.5f;
     private boolean gradientHoriz = false;
@@ -82,5 +80,5 @@ public class RoundedPanel extends JPanel {
     }
 
     @Override
-    protected void paintBorder(Graphics g) { /* handled above */ }
+    protected void paintBorder(Graphics g) {  }
 }

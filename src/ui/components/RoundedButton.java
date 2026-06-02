@@ -1,15 +1,12 @@
 package ui.components;
 
-import utils.ThemeManager;
-
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.RoundRectangle2D;
+import javax.swing.*;
+import utils.ThemeManager;
 
-/**
- * A beautiful rounded gradient button with hover + press animations.
- */
+
 public class RoundedButton extends JButton {
 
     public enum Style { PRIMARY, SECONDARY, DANGER, GHOST }

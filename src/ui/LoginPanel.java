@@ -1,18 +1,14 @@
 package ui;
 
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import managers.AuthManager;
 import ui.components.RoundedButton;
 import ui.components.RoundedPanel;
 import utils.ThemeManager;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
-import java.awt.event.*;
 
-/**
- * Login screen with animated gradient background, card layout, and shake-on-error effect.
- */
 public class LoginPanel extends JPanel {
 
     public interface LoginSuccessListener  { void onLoginSuccess(); }

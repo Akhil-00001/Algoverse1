@@ -1,18 +1,15 @@
 package ui;
 
+import java.awt.*;
+import java.util.List;
+import javax.swing.*;
 import managers.SessionManager;
 import managers.UserManager;
 import models.User;
 import ui.components.*;
 import utils.ThemeManager;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.List;
 
-/**
- * Main Dashboard: XP card grid, progress bar, quick-start buttons, mini leaderboard.
- */
 public class DashboardPanel extends JPanel {
 
     public interface QuickStartListener { void onStart(String panel); }
@@ -215,7 +212,7 @@ public class DashboardPanel extends JPanel {
 
     // ── Public refresh ────────────────────────────────────────────────────────
 
-    /** Call whenever the user's data changes (login, XP award, etc.). */
+    
     public void refresh() {
         User u = SessionManager.getInstance().getCurrentUser();
         if (u == null) return;

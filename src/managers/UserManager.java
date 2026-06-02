@@ -1,16 +1,13 @@
 package managers;
 
-import models.User;
-import utils.FileUtil;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import models.User;
+import utils.FileUtil;
 
-/**
- * CRUD operations for User records stored in data/users.txt
- */
+
 public class UserManager {
 
     private static final String FILE = "data/users.txt";
@@ -55,7 +52,7 @@ public class UserManager {
         return null;
     }
 
-    /** Find the user whose rememberToken is not empty (single active token). */
+    
     public User findByRememberToken() {
         for (User u : getAllUsers()) {
             if (u.getRememberToken() != null && !u.getRememberToken().isEmpty()) {
@@ -90,9 +87,7 @@ public class UserManager {
 
     // ── Convenience ──────────────────────────────────────────────────────────
 
-    /**
-     * Award XP, persist, and return true if the user levelled up.
-     */
+    
     public boolean awardXP(User user, int xp) {
         boolean levelledUp = user.addXP(xp);
         user.setLastLogin(LocalDateTime.now().format(FMT));
@@ -111,7 +106,7 @@ public class UserManager {
         updateUser(user);
     }
 
-    /** Return users sorted by XP descending (leaderboard). */
+    
     public List<User> getLeaderboard() {
         List<User> users = getAllUsers();
         users.sort((a, b) -> Integer.compare(b.getXp(), a.getXp()));

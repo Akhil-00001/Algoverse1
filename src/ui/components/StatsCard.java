@@ -1,13 +1,10 @@
 package ui.components;
 
-import utils.ThemeManager;
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
+import utils.ThemeManager;
 
-/**
- * A card widget showing: icon (emoji/text) + large value + small label.
- * Used on the Dashboard.
- */
+
 public class StatsCard extends RoundedPanel {
 
     private JLabel iconLabel;

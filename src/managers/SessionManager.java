@@ -2,9 +2,7 @@ package managers;
 
 import models.User;
 
-/**
- * Singleton that holds the currently authenticated user for the session.
- */
+
 public class SessionManager {
 
     private static SessionManager instance;
@@ -30,10 +28,7 @@ public class SessionManager {
         currentUser = null;
     }
 
-    /**
-     * Try to restore a session from the saved remember-me token.
-     * Called at startup; sets currentUser if a valid token is found.
-     */
+    
     public void loadRememberedSession() {
         User u = UserManager.getInstance().findByRememberToken();
         if (u != null) {

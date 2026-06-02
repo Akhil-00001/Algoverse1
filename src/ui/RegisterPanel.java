@@ -1,18 +1,14 @@
 package ui;
 
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import managers.AuthManager;
 import ui.components.RoundedButton;
 import ui.components.RoundedPanel;
 import utils.ThemeManager;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
-import java.awt.event.*;
 
-/**
- * Registration screen with real-time validation feedback.
- */
 public class RegisterPanel extends JPanel {
 
     public interface RegisterSuccessListener { void onRegisterSuccess(); }

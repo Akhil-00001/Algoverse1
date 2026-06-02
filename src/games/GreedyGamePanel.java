@@ -1,19 +1,15 @@
 package games;
 
+import java.awt.*;
+import java.util.*;
+import javax.swing.*;
+import managers.ScoreManager;
 import managers.SessionManager;
 import managers.UserManager;
-import managers.ScoreManager;
 import ui.components.RoundedButton;
 import utils.ThemeManager;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.*;
 
-/**
- * Greedy Algorithm Game Mode.
- * Tabs: Activity Selection | Coin Change | Fractional Knapsack | Job Scheduling
- */
 public class GreedyGamePanel extends JPanel {
 
     public GreedyGamePanel() {

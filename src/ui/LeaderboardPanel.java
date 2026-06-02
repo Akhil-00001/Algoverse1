@@ -1,19 +1,15 @@
 package ui;
 
+import java.awt.*;
+import java.util.List;
+import javax.swing.*;
+import javax.swing.table.*;
 import managers.SessionManager;
 import managers.UserManager;
 import models.User;
 import utils.ThemeManager;
 
-import javax.swing.*;
-import javax.swing.table.*;
-import java.awt.*;
-import java.util.List;
 
-/**
- * Full leaderboard screen with a styled JTable sorted by XP.
- * Highlights the current user in accent colour.
- */
 public class LeaderboardPanel extends JPanel {
 
     private JTable    table;
@@ -127,7 +123,7 @@ public class LeaderboardPanel extends JPanel {
         add(legend, BorderLayout.SOUTH);
     }
 
-    /** Reload data from UserManager and repopulate the table. */
+    
     public void refresh() {
         model.setRowCount(0);
         List<User> users = UserManager.getInstance().getLeaderboard();

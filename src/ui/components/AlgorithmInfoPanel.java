@@ -1,15 +1,12 @@
 package ui.components;
 
-import utils.ThemeManager;
-
-import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.*;
+import utils.ThemeManager;
 
-/**
- * A side panel to display details about an algorithm: Description, Complexities, and Stats.
- */
+
 public class AlgorithmInfoPanel extends JPanel {
 
     private JLabel titleLabel;

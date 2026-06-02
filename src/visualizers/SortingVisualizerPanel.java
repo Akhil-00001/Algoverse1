@@ -1,5 +1,9 @@
 package visualizers;
 
+import java.awt.*;
+import java.util.*;
+import java.util.List;
+import javax.swing.*;
 import managers.SessionManager;
 import managers.UserManager;
 import ui.AlgorithmModule;
@@ -7,19 +11,10 @@ import ui.components.AlgorithmInfoPanel;
 import ui.components.RoundedButton;
 import utils.ThemeManager;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import java.util.List;
 
-/**
- * Sorting Visualizer: Bubble, Selection, Insertion, Merge, Quick, Heap Sort.
- * Step-based animation using javax.swing.Timer.
- */
 public class SortingVisualizerPanel extends JPanel implements AlgorithmModule {
 
-    // ── Colours for bar states ────────────────────────────────────────────────
+    
     private static final Color COL_DEFAULT  = new Color(0x6C63FF);
     private static final Color COL_COMPARE  = new Color(0xFFD166);
     private static final Color COL_SWAP     = new Color(0xFF6584);
@@ -27,11 +22,10 @@ public class SortingVisualizerPanel extends JPanel implements AlgorithmModule {
     private static final Color COL_PIVOT    = new Color(0xFF9A3C);
     private static final Color COL_CURRENT  = new Color(0x38F9D7);
 
-    // ── Step representation ───────────────────────────────────────────────────
+    
     private record Step(int[] arr, int[] compare, int[] swap, int[] sorted,
                         int pivot, String msg) {}
 
-    // ── State ─────────────────────────────────────────────────────────────────
     private int[]        array;
     private List<Step>   steps = new ArrayList<>();
     private int          stepIndex = 0;
@@ -39,7 +33,7 @@ public class SortingVisualizerPanel extends JPanel implements AlgorithmModule {
     private javax.swing.Timer timer;
     private int          comparisons = 0, swaps = 0;
 
-    // ── UI ────────────────────────────────────────────────────────────────────
+
     private JPanel       canvas;
     private String       currentAlgorithm = "Bubble Sort";
     private AlgorithmInfoPanel infoPanel;

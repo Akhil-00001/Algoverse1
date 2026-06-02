@@ -2,26 +2,17 @@ package ui;
 
 import games.DPGamePanel;
 import games.GreedyGamePanel;
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.*;
 import managers.SessionManager;
-import ui.components.RoundedButton;
-import ui.LoginPanel;
-import ui.RegisterPanel;
 import utils.ThemeManager;
-
 import visualizers.DivideConquerPanel;
 import visualizers.PathfindingVisualizerPanel;
 import visualizers.SortingVisualizerPanel;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
 
-/**
- * Root application frame.
- * Uses a CardLayout to switch between Login, Register, and the main app shell
- * (sidebar + content area with its own CardLayout).
- */
 public class MainFrame extends JFrame {
 
     // ── Card names ────────────────────────────────────────────────────────────

@@ -1,13 +1,11 @@
 package ui.components;
 
-import utils.ThemeManager;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
+import javax.swing.*;
+import utils.ThemeManager;
 
-/**
- * Smooth animated progress bar that tweens to a target value.
- */
+
 public class AnimatedProgressBar extends JComponent {
 
     private float current = 0f;   // 0.0 – 1.0 (rendered value)
@@ -33,13 +31,13 @@ public class AnimatedProgressBar extends JComponent {
         });
     }
 
-    /** Set progress (0.0–1.0) with animation. */
+    
     public void setProgress(float value) {
         target = Math.max(0f, Math.min(1f, value));
         if (!timer.isRunning()) timer.start();
     }
 
-    /** Immediately jump to value (no animation). */
+    
     public void setProgressImmediate(float value) {
         timer.stop();
         current = target = Math.max(0f, Math.min(1f, value));

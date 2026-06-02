@@ -1,7 +1,7 @@
 package utils;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class ThemeManager {
 
@@ -41,7 +41,7 @@ public class ThemeManager {
     public static final Font FONT_SMALL  = new Font("Segoe UI", Font.PLAIN, 12);
     public static final Font FONT_MONO   = new Font("Consolas", Font.PLAIN, 13);
 
-    /** Apply full dark theme to Swing UIManager (no external library needed). */
+    
     public static void applyDarkTheme() {
         // Try FlatLaf if on classpath
         try {
@@ -126,7 +126,7 @@ public class ThemeManager {
         UIManager.put("ProgressBar.selectionForeground", TEXT_PRIMARY);
     }
 
-    /** Linear interpolation between two colours. */
+    
     public static Color lerp(Color a, Color b, float t) {
         t = Math.max(0f, Math.min(1f, t));
         return new Color(
@@ -136,7 +136,7 @@ public class ThemeManager {
         );
     }
 
-    /** Paint a horizontal gradient rectangle. */
+    
     public static void paintGradient(Graphics2D g2, Color c1, Color c2,
                                      int x, int y, int w, int h) {
         g2.setPaint(new GradientPaint(x, y, c1, x + w, y, c2));

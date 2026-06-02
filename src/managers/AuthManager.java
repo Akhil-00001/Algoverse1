@@ -3,9 +3,7 @@ package managers;
 import models.User;
 import utils.PasswordUtil;
 
-/**
- * Handles registration, login, logout and remember-me logic.
- */
+
 public class AuthManager {
 
     private static AuthManager instance;

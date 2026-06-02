@@ -5,15 +5,12 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
 
-/**
- * Utility for SHA-256 password hashing with a random salt.
- * Format stored: base64(salt) + ":" + base64(sha256(salt + password))
- */
+
 public class PasswordUtil {
 
     private static final int SALT_LENGTH = 16;
 
-    /** Hash a plain-text password. Returns storable hash string. */
+    
     public static String hash(String password) {
         try {
             SecureRandom rng  = new SecureRandom();
@@ -28,7 +25,7 @@ public class PasswordUtil {
         }
     }
 
-    /** Verify plain text password against a stored hash string. */
+    
     public static boolean verify(String password, String stored) {
         try {
             String[] parts = stored.split(":", 2);
@@ -42,7 +39,7 @@ public class PasswordUtil {
         }
     }
 
-    /** Generate a random remember-me token (URL-safe base64). */
+    
     public static String generateToken() {
         byte[] bytes = new byte[24];
         new SecureRandom().nextBytes(bytes);

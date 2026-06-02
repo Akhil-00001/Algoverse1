@@ -1,20 +1,16 @@
 package ui;
 
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.geom.RoundRectangle2D;
+import java.util.function.Consumer;
+import javax.swing.*;
 import managers.AuthManager;
 import managers.SessionManager;
 import ui.components.RoundedButton;
 import utils.ThemeManager;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.geom.RoundRectangle2D;
-import java.util.function.Consumer;
 
-/**
- * Left-side navigation sidebar.
- * Items: Dashboard, Sorting, Pathfinding, Divide&Conquer, Greedy Game, DP Game, Leaderboard, Logout
- */
 public class SidebarPanel extends JPanel {
 
     public interface NavListener {
@@ -228,7 +224,7 @@ public class SidebarPanel extends JPanel {
         repaint();
     }
 
-    /** Set the algorithm options dynamically based on the active module. */
+    
     public void setAlgorithmOptions(String[] options, Consumer<String> onSelect) {
         if (options == null || options.length == 0) {
             algoOptionsPanel.setVisible(false);
@@ -252,7 +248,7 @@ public class SidebarPanel extends JPanel {
         repaint();
     }
 
-    /** Refresh user info labels from current session. */
+    
     public void refreshUser() {
         var user = SessionManager.getInstance().getCurrentUser();
         if (user != null) {
