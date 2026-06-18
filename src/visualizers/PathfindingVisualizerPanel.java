@@ -3,6 +3,8 @@ package visualizers;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.util.Queue;
+
 import javax.swing.*;
 import managers.SessionManager;
 import managers.UserManager;
@@ -40,19 +42,19 @@ public class PathfindingVisualizerPanel extends JPanel implements AlgorithmModul
     private int startR = 5,  startC = 5;
     private int endR   = 16, endC   = 36;
 
+
     private final Queue<int[]>    frontier  = new LinkedList<>();
     private final Map<String,String> cameFrom = new HashMap<>();
     private boolean running = false, done = false;
     private javax.swing.Timer   timer;
-    private int[][] dist; // for Dijkstra
+    private int[][] dist; 
 
-    // ── UI ────────────────────────────────────────────────────────────────────
     private GridCanvas  gridCanvas;
     private String      currentAlgorithm = "BFS";
     private AlgorithmInfoPanel infoPanel;
     private JLabel      statusLabel;
     private RoundedButton startBtn, resetBtn, clearBtn;
-    private int drawMode = WALL; // left-click places this cell type
+    private int drawMode = WALL;
     
     private long accumulatedComputeTime = 0;
     private static final String[] ALGOS = {"BFS", "DFS", "Dijkstra", "A*"};
@@ -144,6 +146,7 @@ public class PathfindingVisualizerPanel extends JPanel implements AlgorithmModul
             else if (grid[r][c] == WALL) grid[r][c] = EMPTY;
         }
         gridCanvas.repaint();
+        // repaint();
     }
 
 
