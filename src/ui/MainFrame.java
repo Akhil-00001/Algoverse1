@@ -2,15 +2,20 @@ package ui;
 
 import games.DPGamePanel;
 import games.GreedyGamePanel;
-import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
-import javax.swing.*;
 import managers.SessionManager;
+import ui.components.RoundedButton;
+import ui.LoginPanel;
+import ui.RegisterPanel;
 import utils.ThemeManager;
+
 import visualizers.DivideConquerPanel;
 import visualizers.PathfindingVisualizerPanel;
 import visualizers.SortingVisualizerPanel;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MainFrame extends JFrame {
@@ -105,6 +110,7 @@ public class MainFrame extends JFrame {
             rootLayout.show(rootPanel, CARD_LOGIN);
             return;
         }
+        contentLayout.show(contentPanel, panel);
         sidebar.setActivePanel(panel);
 
         Component active = panels.get(panel);
