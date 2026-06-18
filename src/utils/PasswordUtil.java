@@ -46,7 +46,6 @@ public class PasswordUtil {
         return Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
     }
 
-    // ── private helpers ──────────────────────────────────────────────────────
 
     private static byte[] sha256(byte[] data) throws NoSuchAlgorithmException {
         return MessageDigest.getInstance("SHA-256").digest(data);

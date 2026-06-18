@@ -23,7 +23,7 @@ public class DivideConquerPanel extends JPanel implements AlgorithmModule {
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createEmptyBorder(18, 18, 18, 18));
 
-        JLabel title = new JLabel("🔀 Divide & Conquer");
+        JLabel title = new JLabel(" Divide & Conquer");
         title.setFont(ThemeManager.FONT_LARGE);
         title.setForeground(ThemeManager.TEXT_PRIMARY);
         title.setBorder(BorderFactory.createEmptyBorder(0, 0, 14, 0));
@@ -52,9 +52,6 @@ public class DivideConquerPanel extends JPanel implements AlgorithmModule {
         cardLayout.show(cardsPanel, algorithm);
     }
 
-    // ══════════════════════════════════════════════════════════════════════════
-    // Tower of Hanoi
-    // ══════════════════════════════════════════════════════════════════════════
 
     static class HanoiPanel extends JPanel {
         private final List<List<Integer>> pegs = new ArrayList<>();
@@ -90,8 +87,8 @@ public class DivideConquerPanel extends JPanel implements AlgorithmModule {
             JSpinner diskSpinner = new JSpinner(new SpinnerNumberModel(5, 2, 8, 1));
             diskSpinner.setFont(ThemeManager.FONT_NORMAL);
 
-            RoundedButton startBtn = new RoundedButton("▶ Animate");
-            RoundedButton resetBtn = new RoundedButton("↺ Reset", RoundedButton.Style.SECONDARY);
+            RoundedButton startBtn = new RoundedButton(" Animate");
+            RoundedButton resetBtn = new RoundedButton(" Reset", RoundedButton.Style.SECONDARY);
 
             JSlider speed = new JSlider(1, 20, 5);
             speed.setOpaque(false);
@@ -117,7 +114,7 @@ public class DivideConquerPanel extends JPanel implements AlgorithmModule {
                         canvas.repaint();
                     } else {
                         timer.stop();
-                        info.setText("✅ Done in " + moves.size() + " moves!");
+                        info.setText(" Done in " + moves.size() + " moves!");
                     }
                 });
                 timer.start();
@@ -169,11 +166,9 @@ public class DivideConquerPanel extends JPanel implements AlgorithmModule {
                                   ThemeManager.ACCENT_CYAN, ThemeManager.ACCENT_ORANGE,
                                   new Color(0xBF84FF), new Color(0xFF4757)};
 
-            // Base line
             g2.setColor(ThemeManager.TEXT_MUTED);
             g2.fillRoundRect(20, baseY - 6, w - 40, 10, 6, 6);
 
-            // Pegs
             String[] labels = {"A", "B", "C"};
             for (int i = 0; i < 3; i++) {
                 g2.setColor(ThemeManager.TEXT_SECONDARY);
@@ -184,7 +179,6 @@ public class DivideConquerPanel extends JPanel implements AlgorithmModule {
                 g2.drawString(labels[i], pegX[i] - fm.stringWidth(labels[i])/2, baseY + 16);
             }
 
-            // Disks
             int maxDiskW = w / 4;
             for (int p = 0; p < 3; p++) {
                 List<Integer> peg = pegs.get(p);
@@ -207,13 +201,10 @@ public class DivideConquerPanel extends JPanel implements AlgorithmModule {
         }
     }
 
-    // ══════════════════════════════════════════════════════════════════════════
-    // Binary Search
-    // ══════════════════════════════════════════════════════════════════════════
 
     static class BinarySearchPanel extends JPanel {
         private int[] arr;
-        private List<int[]> steps = new ArrayList<>(); // {left, mid, right, target}
+        private List<int[]> steps = new ArrayList<>(); 
         private int step = 0;
         private Timer timer;
         private final java.util.function.LongConsumer timeCallback;
@@ -249,8 +240,8 @@ public class DivideConquerPanel extends JPanel implements AlgorithmModule {
                     BorderFactory.createLineBorder(ThemeManager.BORDER),
                     BorderFactory.createEmptyBorder(4, 8, 4, 8)));
 
-            RoundedButton searchBtn = new RoundedButton("🔍 Search");
-            RoundedButton resetBtn  = new RoundedButton("↺ Reset", RoundedButton.Style.SECONDARY);
+            RoundedButton searchBtn = new RoundedButton(" Search");
+            RoundedButton resetBtn  = new RoundedButton(" Reset", RoundedButton.Style.SECONDARY);
 
             searchBtn.addActionListener(e -> {
                 if (timer != null) timer.stop();
@@ -271,9 +262,9 @@ public class DivideConquerPanel extends JPanel implements AlgorithmModule {
                         
                         String msg = "L=" + (l>=0&&l<arr.length?arr[l]:"") + " M=" + (m>=0?arr[m]:"") + " R=" + (r>=0&&r<arr.length?arr[r]:"") + "  |  ";
                         if (m == -1) {
-                            msg += "❌ Target not found in the array.";
+                            msg += " Target not found in the array.";
                         } else if (arr[m] == target) {
-                            msg += "✅ Target " + target + " found at index " + m + "!";
+                            msg += " Target " + target + " found at index " + m + "!";
                         } else if (target < arr[m]) {
                             msg += "Target (" + target + ") < Mid (" + arr[m] + "). Discarding right half.";
                         } else {
@@ -357,9 +348,6 @@ public class DivideConquerPanel extends JPanel implements AlgorithmModule {
         }
     }
 
-    // ══════════════════════════════════════════════════════════════════════════
-    // Merge Sort Tree (recursive call tree visualisation)
-    // ══════════════════════════════════════════════════════════════════════════
 
     static class MergeSortTreePanel extends JPanel {
         private final List<int[][]> nodes = new ArrayList<>(); // {arr, l, r, depth}
@@ -397,8 +385,8 @@ public class DivideConquerPanel extends JPanel implements AlgorithmModule {
                     BorderFactory.createLineBorder(ThemeManager.BORDER),
                     BorderFactory.createEmptyBorder(4, 8, 4, 8)));
 
-            RoundedButton animBtn = new RoundedButton("▶ Visualize");
-            RoundedButton resetBtn = new RoundedButton("↺ Reset", RoundedButton.Style.SECONDARY);
+            RoundedButton animBtn = new RoundedButton(" Visualize");
+            RoundedButton resetBtn = new RoundedButton(" Reset", RoundedButton.Style.SECONDARY);
 
             animBtn.addActionListener(e -> {
                 if (timer != null) timer.stop();
@@ -428,7 +416,7 @@ public class DivideConquerPanel extends JPanel implements AlgorithmModule {
                         canvas.repaint(); 
                     }
                     else { 
-                        status.setText("✅ Merge Sort Tree completely expanded!");
+                        status.setText(" Merge Sort Tree completely expanded!");
                         timer.stop(); 
                     }
                 });

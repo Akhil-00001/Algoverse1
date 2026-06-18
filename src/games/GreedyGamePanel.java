@@ -27,17 +27,14 @@ public class GreedyGamePanel extends JPanel {
         tabs.setForeground(ThemeManager.TEXT_PRIMARY);
         tabs.setFont(ThemeManager.FONT_NORMAL);
 
-        tabs.addTab("📅 Activity Selection", new ActivitySelectionGame());
-        tabs.addTab("🪙 Coin Change",         new CoinChangeGame());
-        tabs.addTab("🎒 Fractional Knapsack", new KnapsackGame());
-
+        tabs.addTab(" Activity Selection", new ActivitySelectionGame());
+        tabs.addTab(" Coin Change",         new CoinChangeGame());
+        tabs.addTab(" Fractional Knapsack", new KnapsackGame());
+ 
         add(title, BorderLayout.NORTH);
         add(tabs,  BorderLayout.CENTER);
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // Helper: award XP
-    // ─────────────────────────────────────────────────────────────────────────
     static void awardXP(String id, int score, int time) {
         var sess = SessionManager.getInstance();
         if (!sess.isLoggedIn()) return;
@@ -45,11 +42,7 @@ public class GreedyGamePanel extends JPanel {
         ScoreManager.getInstance().recordResult(sess.getCurrentUser().getId(), id, score, time);
     }
 
-    // ═════════════════════════════════════════════════════════════════════════
-    // 1. Activity Selection Game
-    // ═════════════════════════════════════════════════════════════════════════
     static class ActivitySelectionGame extends JPanel {
-        // Each activity: {start, finish}
         private int[][] activities;
         private boolean[] selected;
         private boolean[] correct;
@@ -63,7 +56,6 @@ public class GreedyGamePanel extends JPanel {
             setLayout(new BorderLayout(0, 12));
             setBorder(BorderFactory.createEmptyBorder(16, 16, 16, 16));
 
-            // Theory card
             JPanel theory = theory("Activity Selection",
                     "<html><b>Goal:</b> Select maximum non-overlapping activities.<br>" +
                     "Sort by finish time. Greedily pick each activity that starts<br>" +
@@ -79,9 +71,9 @@ public class GreedyGamePanel extends JPanel {
             JPanel btnRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
             btnRow.setOpaque(false);
 
-            RoundedButton submitBtn = new RoundedButton("✔ Submit");
-            RoundedButton newBtn    = new RoundedButton("🔀 New Round", RoundedButton.Style.SECONDARY);
-            RoundedButton hintBtn   = new RoundedButton("💡 Show Answer", RoundedButton.Style.GHOST);
+            RoundedButton submitBtn = new RoundedButton(" Submit");
+            RoundedButton newBtn    = new RoundedButton(" New Round", RoundedButton.Style.SECONDARY);
+            RoundedButton hintBtn   = new RoundedButton(" Show Answer", RoundedButton.Style.GHOST);
 
             submitBtn.addActionListener(e -> checkAnswer());
             newBtn.addActionListener(e -> newRound());
@@ -117,7 +109,6 @@ public class GreedyGamePanel extends JPanel {
 
         private void buildActivityCards() {
             actPanel.removeAll();
-            // Header row
             for (String h : new String[]{"Activity", "Start", "Finish", "Select"}) {
                 JLabel l = new JLabel(h, SwingConstants.CENTER);
                 l.setFont(ThemeManager.FONT_MEDIUM);
@@ -152,12 +143,12 @@ public class GreedyGamePanel extends JPanel {
 
             if (perfect) {
                 score += 100;
-                feedback.setText("✅ Perfect! Maximum " + correct + " activities selected. +100 XP");
+                feedback.setText(" Perfect! Maximum " + correct + " activities selected. +100 XP");
                 feedback.setForeground(ThemeManager.ACCENT_GREEN);
                 awardXP("GREEDY_ACTIVITY", score, (int)((System.currentTimeMillis()-startTime)/1000));
             } else {
                 score += 30;
-                feedback.setText("❌ You selected " + correct + ", but max is " + maxCorrect + ". Try again!");
+                feedback.setText(" You selected " + correct + ", but max is " + maxCorrect + ". Try again!");
                 feedback.setForeground(ThemeManager.ACCENT_PINK);
             }
             scoreLabel.setText("Score: " + score);
@@ -167,7 +158,6 @@ public class GreedyGamePanel extends JPanel {
             correct = computeGreedy();
             feedback.setText("Greedy answer shown (sorted by finish time).");
             feedback.setForeground(ThemeManager.ACCENT_YELLOW);
-            // Rebuild with correct highlighted
             actPanel.removeAll();
             for (String h : new String[]{"Activity","Start","Finish","Select"}) {
                 JLabel l = new JLabel(h, SwingConstants.CENTER);
@@ -221,9 +211,6 @@ public class GreedyGamePanel extends JPanel {
         }
     }
 
-    // ═════════════════════════════════════════════════════════════════════════
-    // 2. Coin Change Game
-    // ═════════════════════════════════════════════════════════════════════════
     static class CoinChangeGame extends JPanel {
         private int[] coins = {1, 5, 10, 25, 50};
         private int target, score = 0;
@@ -267,9 +254,9 @@ public class GreedyGamePanel extends JPanel {
 
             JPanel btnRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
             btnRow.setOpaque(false);
-            RoundedButton submitBtn = new RoundedButton("✔ Submit");
-            RoundedButton newBtn    = new RoundedButton("🔀 New Round", RoundedButton.Style.SECONDARY);
-            RoundedButton hintBtn   = new RoundedButton("💡 Show Answer", RoundedButton.Style.GHOST);
+            RoundedButton submitBtn = new RoundedButton(" Submit");
+            RoundedButton newBtn    = new RoundedButton(" New Round", RoundedButton.Style.SECONDARY);
+            RoundedButton hintBtn   = new RoundedButton(" Show Answer", RoundedButton.Style.GHOST);
             submitBtn.addActionListener(e -> checkAnswer());
             newBtn.addActionListener(e -> newRound());
             hintBtn.addActionListener(e -> showAnswer());
@@ -311,16 +298,16 @@ public class GreedyGamePanel extends JPanel {
             int[] greedy = computeGreedy();
             int greedyCoins = Arrays.stream(greedy).sum();
             if (total != target) {
-                feedback.setText("❌ Total is " + total + ", not " + target + ". Try again.");
+                feedback.setText(" Total is " + total + ", not " + target + ". Try again.");
                 feedback.setForeground(ThemeManager.ERROR);
             } else if (numCoins == greedyCoins) {
                 score += 100;
-                feedback.setText("✅ Optimal! Used " + numCoins + " coins. +100 XP");
+                feedback.setText(" Optimal! Used " + numCoins + " coins. +100 XP");
                 feedback.setForeground(ThemeManager.ACCENT_GREEN);
                 awardXP("GREEDY_COIN", score, (int)((System.currentTimeMillis()-startTime)/1000));
             } else {
                 score += 40;
-                feedback.setText("✔ Correct total but not optimal (" + numCoins + " vs " + greedyCoins + "). +40");
+                feedback.setText(" Correct total but not optimal (" + numCoins + " vs " + greedyCoins + "). +40");
                 feedback.setForeground(ThemeManager.ACCENT_YELLOW);
             }
             scoreLabel.setText("Score: " + score);
@@ -347,9 +334,6 @@ public class GreedyGamePanel extends JPanel {
         }
     }
 
-    // ═════════════════════════════════════════════════════════════════════════
-    // 3. Fractional Knapsack
-    // ═════════════════════════════════════════════════════════════════════════
     static class KnapsackGame extends JPanel {
         private int[][] items; // {weight, value}
         private int capacity;
@@ -381,9 +365,9 @@ public class GreedyGamePanel extends JPanel {
 
             JPanel btnRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
             btnRow.setOpaque(false);
-            RoundedButton submitBtn = new RoundedButton("✔ Submit");
-            RoundedButton newBtn    = new RoundedButton("🔀 New Round", RoundedButton.Style.SECONDARY);
-            RoundedButton hintBtn   = new RoundedButton("💡 Show Answer", RoundedButton.Style.GHOST);
+            RoundedButton submitBtn = new RoundedButton(" Submit");
+            RoundedButton newBtn    = new RoundedButton(" New Round", RoundedButton.Style.SECONDARY);
+            RoundedButton hintBtn   = new RoundedButton(" Show Answer", RoundedButton.Style.GHOST);
             submitBtn.addActionListener(e -> checkAnswer());
             newBtn.addActionListener(e -> newRound());
             hintBtn.addActionListener(e -> showAnswer());
@@ -457,7 +441,7 @@ public class GreedyGamePanel extends JPanel {
             int optVal = computeGreedyValue();
             if (totalV >= optVal) {
                 score += 100;
-                feedback.setText("✅ Optimal! Value = ₹" + totalV + ", Weight = " + totalW + "kg. +100");
+                feedback.setText(" Optimal! Value = ₹" + totalV + ", Weight = " + totalW + "kg. +100");
                 feedback.setForeground(ThemeManager.ACCENT_GREEN);
                 awardXP("GREEDY_KNAPSACK", score, (int)((System.currentTimeMillis()-startTime)/1000));
             } else {
@@ -495,9 +479,6 @@ public class GreedyGamePanel extends JPanel {
         }
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // Shared helpers
-    // ─────────────────────────────────────────────────────────────────────────
 
     static JPanel theory(String heading, String html) {
         JPanel p = new JPanel(new BorderLayout(0, 4));

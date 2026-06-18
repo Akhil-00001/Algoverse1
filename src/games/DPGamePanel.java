@@ -28,15 +28,14 @@ public class DPGamePanel extends JPanel {
         tabs.setForeground(ThemeManager.TEXT_PRIMARY);
         tabs.setFont(ThemeManager.FONT_NORMAL);
 
-        tabs.addTab("🔢 Fibonacci DP",    new FibonacciDPGame());
-        tabs.addTab("🎒 0/1 Knapsack DP", new KnapsackDPGame());
-        tabs.addTab("📝 LCS",             new LCSGame());
+        tabs.addTab(" Fibonacci DP",    new FibonacciDPGame());
+        tabs.addTab(" 0/1 Knapsack DP", new KnapsackDPGame());
+        tabs.addTab(" LCS",             new LCSGame());
 
         add(title, BorderLayout.NORTH);
         add(tabs,  BorderLayout.CENTER);
     }
 
-    // ─── shared award helper ──────────────────────────────────────────────────
     static void award(String id, int score, int timeSec) {
         var sess = SessionManager.getInstance();
         if (!sess.isLoggedIn()) return;
@@ -44,9 +43,6 @@ public class DPGamePanel extends JPanel {
         ScoreManager.getInstance().recordResult(sess.getCurrentUser().getId(), id, score, timeSec);
     }
 
-    // ═════════════════════════════════════════════════════════════════════════
-    // 1. Fibonacci DP  — fill in the table step by step
-    // ═════════════════════════════════════════════════════════════════════════
     static class FibonacciDPGame extends JPanel {
 
         private static final int N = 10;
@@ -61,12 +57,10 @@ public class DPGamePanel extends JPanel {
             setLayout(new BorderLayout(0, 12));
             setBorder(BorderFactory.createEmptyBorder(16, 16, 16, 16));
 
-            // Theory
             JPanel theory = theoryCard("Fibonacci with Memoisation",
                 "<html><b>DP recurrence:</b>  F(n) = F(n-1) + F(n-2) ,  F(0)=0 , F(1)=1<br>" +
                 "Fill in the table from left to right using the recurrence.</html>");
 
-            // Row labels
             JPanel topRow = new JPanel(new GridLayout(1, N, 6, 0));
             topRow.setOpaque(false);
             for (int i = 0; i < N; i++) {
@@ -75,7 +69,6 @@ public class DPGamePanel extends JPanel {
                 topRow.add(l);
             }
 
-            // Input cells
             JPanel cellRow = new JPanel(new GridLayout(1, N, 6, 0));
             cellRow.setOpaque(false);
             for (int i = 0; i < N; i++) {
@@ -97,7 +90,6 @@ public class DPGamePanel extends JPanel {
             tablePanel.add(topRow);
             tablePanel.add(cellRow);
 
-            // Wrap so tablePanel doesn't stretch to fill BorderLayout.CENTER
             JPanel tableWrapper = new JPanel(new BorderLayout());
             tableWrapper.setOpaque(false);
             tableWrapper.add(tablePanel, BorderLayout.NORTH);
@@ -107,9 +99,9 @@ public class DPGamePanel extends JPanel {
 
             JPanel btnRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
             btnRow.setOpaque(false);
-            RoundedButton submit = new RoundedButton("✔ Check");
-            RoundedButton reset  = new RoundedButton("↺ Reset", RoundedButton.Style.SECONDARY);
-            RoundedButton hint   = new RoundedButton("💡 Fill Answer", RoundedButton.Style.GHOST);
+            RoundedButton submit = new RoundedButton(" Check");
+            RoundedButton reset  = new RoundedButton(" Reset", RoundedButton.Style.SECONDARY);
+            RoundedButton hint   = new RoundedButton(" Fill Answer", RoundedButton.Style.GHOST);
             submit.addActionListener(e -> check());
             reset.addActionListener(e  -> reset());
             hint.addActionListener(e   -> fillAnswer());
@@ -151,11 +143,11 @@ public class DPGamePanel extends JPanel {
             int earned = correct * 10;
             score += earned;
             if (correct == N) {
-                feedback.setText("✅ Perfect! All " + N + " values correct! +" + earned + " XP");
+                feedback.setText(" Perfect! All " + N + " values correct! +" + earned + " XP");
                 feedback.setForeground(ThemeManager.ACCENT_GREEN);
                 award("DP_FIBONACCI", score, (int)((System.currentTimeMillis()-startTime)/1000));
             } else {
-                feedback.setText("❌ " + correct + "/" + N + " correct. Red cells are wrong. +" + earned);
+                feedback.setText(" " + correct + "/" + N + " correct. Red cells are wrong. +" + earned);
                 feedback.setForeground(ThemeManager.ACCENT_PINK);
             }
             scoreLabel.setText("Score: " + score);
@@ -181,9 +173,6 @@ public class DPGamePanel extends JPanel {
         }
     }
 
-    // ═════════════════════════════════════════════════════════════════════════
-    // 2. 0/1 Knapsack DP Table
-    // ═════════════════════════════════════════════════════════════════════════
     static class KnapsackDPGame extends JPanel {
 
         private int[] weights, values;
@@ -214,9 +203,9 @@ public class DPGamePanel extends JPanel {
 
             JPanel btnRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
             btnRow.setOpaque(false);
-            RoundedButton newBtn  = new RoundedButton("🔀 New Round");
-            RoundedButton check   = new RoundedButton("✔ Check", RoundedButton.Style.SECONDARY);
-            RoundedButton hint    = new RoundedButton("💡 Show Answer", RoundedButton.Style.GHOST);
+            RoundedButton newBtn  = new RoundedButton(" New Round");
+            RoundedButton check   = new RoundedButton(" Check", RoundedButton.Style.SECONDARY);
+            RoundedButton hint    = new RoundedButton(" Show Answer", RoundedButton.Style.GHOST);
             newBtn.addActionListener(e  -> newRound());
             check.addActionListener(e   -> check());
             hint.addActionListener(e    -> fillAnswer());
@@ -267,7 +256,6 @@ public class DPGamePanel extends JPanel {
             tablePanel.removeAll();
             tablePanel.setLayout(new GridLayout(n+2, capacity+2, 4, 4));
 
-            // Item info header
             JLabel corner = new JLabel("Item→Cap", SwingConstants.CENTER);
             corner.setFont(ThemeManager.FONT_SMALL); corner.setForeground(ThemeManager.TEXT_MUTED);
             tablePanel.add(corner);
@@ -316,7 +304,7 @@ public class DPGamePanel extends JPanel {
             int earned = (int)(100.0 * correct / total);
             score += earned;
             if (correct == total) {
-                feedback.setText("✅ Perfect! Max value = " + dp[n][capacity] + ". +" + earned);
+                feedback.setText(" Perfect! Max value = " + dp[n][capacity] + ". +" + earned);
                 feedback.setForeground(ThemeManager.ACCENT_GREEN);
                 award("DP_KNAPSACK", score, (int)((System.currentTimeMillis()-startTime)/1000));
             } else {
@@ -338,9 +326,6 @@ public class DPGamePanel extends JPanel {
         }
     }
 
-    // ═════════════════════════════════════════════════════════════════════════
-    // 3. LCS Game
-    // ═════════════════════════════════════════════════════════════════════════
     static class LCSGame extends JPanel {
 
         private String s1, s2;
@@ -374,9 +359,9 @@ public class DPGamePanel extends JPanel {
 
             JPanel btnRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
             btnRow.setOpaque(false);
-            RoundedButton newBtn = new RoundedButton("🔀 New Round");
-            RoundedButton check  = new RoundedButton("✔ Check", RoundedButton.Style.SECONDARY);
-            RoundedButton hint   = new RoundedButton("💡 Show Answer", RoundedButton.Style.GHOST);
+            RoundedButton newBtn = new RoundedButton(" New Round");
+            RoundedButton check  = new RoundedButton(" Check", RoundedButton.Style.SECONDARY);
+            RoundedButton hint   = new RoundedButton(" Show Answer", RoundedButton.Style.GHOST);
             newBtn.addActionListener(e -> newRound());
             check.addActionListener(e  -> check());
             hint.addActionListener(e   -> fillAnswer());
@@ -477,7 +462,7 @@ public class DPGamePanel extends JPanel {
             int earned = (int)(100.0 * correct / total);
             score += earned;
             if (correct == total) {
-                feedback.setText("✅ Perfect! LCS length = " + dp[m][n] + ". +" + earned);
+                feedback.setText(" Perfect! LCS length = " + dp[m][n] + ". +" + earned);
                 feedback.setForeground(ThemeManager.ACCENT_GREEN);
                 award("DP_LCS", score, (int)((System.currentTimeMillis()-startTime)/1000));
             } else {
@@ -500,7 +485,6 @@ public class DPGamePanel extends JPanel {
         }
     }
 
-    // ─── shared helpers ───────────────────────────────────────────────────────
     static JPanel theoryCard(String heading, String html) {
         JPanel p = new JPanel(new BorderLayout(0, 4));
         p.setOpaque(false);

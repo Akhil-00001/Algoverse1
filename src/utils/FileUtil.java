@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FileUtil {
+public class FileUtil { 
 
     public static final String DELIMITER    = "|";
     public static final String LIST_SEP     = ",";

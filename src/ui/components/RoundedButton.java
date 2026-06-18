@@ -75,7 +75,6 @@ public class RoundedButton extends JButton {
             default        -> { base = ThemeManager.ACCENT; hover = ThemeManager.ACCENT_HOVER; }
         }
 
-        // Fill
         if (style == Style.PRIMARY) {
             Color c1 = ThemeManager.lerp(ThemeManager.ACCENT, ThemeManager.ACCENT_HOVER, hoverAlpha);
             Color c2 = ThemeManager.lerp(new Color(0x9C63FF), new Color(0xBF84FF), hoverAlpha);
@@ -85,20 +84,17 @@ public class RoundedButton extends JButton {
         }
         g2.fill(shape);
 
-        // Border for ghost/secondary
         if (style == Style.SECONDARY || style == Style.GHOST) {
             g2.setColor(ThemeManager.lerp(ThemeManager.BORDER, ThemeManager.ACCENT, hoverAlpha));
             g2.setStroke(new BasicStroke(1.5f));
             g2.draw(shape);
         }
 
-        // Glow overlay when hovered (primary)
         if (style == Style.PRIMARY && hoverAlpha > 0) {
             g2.setColor(new Color(255, 255, 255, (int)(20 * hoverAlpha)));
             g2.fill(shape);
         }
 
-        // Press effect
         ButtonModel m = getModel();
         if (m.isPressed()) {
             g2.setColor(new Color(0, 0, 0, 50));
@@ -107,7 +103,6 @@ public class RoundedButton extends JButton {
 
         g2.dispose();
 
-        // Let super paint text/icon
         super.paintComponent(g);
     }
 

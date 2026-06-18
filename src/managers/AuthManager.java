@@ -15,7 +15,6 @@ public class AuthManager {
         return instance;
     }
 
-    // ── Registration ─────────────────────────────────────────────────────────
 
     public enum RegisterResult { SUCCESS, USERNAME_TAKEN, USERNAME_INVALID,
                                  PASSWORD_TOO_SHORT, PASSWORDS_DO_NOT_MATCH }
@@ -37,7 +36,6 @@ public class AuthManager {
         return RegisterResult.SUCCESS;
     }
 
-    // ── Login ────────────────────────────────────────────────────────────────
 
     public enum LoginResult { SUCCESS, USER_NOT_FOUND, WRONG_PASSWORD }
 
@@ -59,13 +57,11 @@ public class AuthManager {
         return LoginResult.SUCCESS;
     }
 
-    // ── Logout ───────────────────────────────────────────────────────────────
 
     public void logout() {
         SessionManager.getInstance().logout();
     }
 
-    // ── Messages ─────────────────────────────────────────────────────────────
 
     public static String messageFor(RegisterResult r) {
         return switch (r) {

@@ -5,13 +5,11 @@ import javax.swing.*;
 
 public class ThemeManager {
 
-    // ── Background ──────────────────────────────────────────────────────────
     public static final Color BG_PRIMARY   = new Color(0x0D0D1A);
     public static final Color BG_SECONDARY = new Color(0x13132A);
     public static final Color BG_SURFACE   = new Color(0x1A1A3E);
     public static final Color BG_CARD      = new Color(0x1E1E45);
 
-    // ── Accents ──────────────────────────────────────────────────────────────
     public static final Color ACCENT        = new Color(0x6C63FF);
     public static final Color ACCENT_HOVER  = new Color(0x8B84FF);
     public static final Color ACCENT_PINK   = new Color(0xFF6584);
@@ -20,20 +18,16 @@ public class ThemeManager {
     public static final Color ACCENT_CYAN   = new Color(0x38F9D7);
     public static final Color ACCENT_ORANGE = new Color(0xFF9A3C);
 
-    // ── Text ─────────────────────────────────────────────────────────────────
     public static final Color TEXT_PRIMARY   = new Color(0xEEEEFF);
     public static final Color TEXT_SECONDARY = new Color(0x9999BB);
     public static final Color TEXT_MUTED     = new Color(0x55557A);
 
-    // ── Status ───────────────────────────────────────────────────────────────
     public static final Color SUCCESS = new Color(0x2ED573);
     public static final Color WARNING = new Color(0xFFB347);
     public static final Color ERROR   = new Color(0xFF4757);
 
-    // ── Borders ───────────────────────────────────────────────────────────────
     public static final Color BORDER = new Color(0x2A2A5A);
 
-    // ── Fonts ─────────────────────────────────────────────────────────────────
     public static final Font FONT_TITLE  = new Font("Segoe UI", Font.BOLD, 30);
     public static final Font FONT_LARGE  = new Font("Segoe UI", Font.BOLD, 22);
     public static final Font FONT_MEDIUM = new Font("Segoe UI", Font.BOLD, 16);
@@ -43,11 +37,9 @@ public class ThemeManager {
 
     
     public static void applyDarkTheme() {
-        // Try FlatLaf if on classpath
         try {
             Class<?> cls = Class.forName("com.formdev.flatlaf.FlatDarkLaf");
             UIManager.setLookAndFeel((LookAndFeel) cls.getDeclaredConstructor().newInstance());
-            // FlatLaf extra tweaks
             UIManager.put("Button.arc", 12);
             UIManager.put("Component.arc", 10);
             UIManager.put("ProgressBar.arc", 8);
@@ -55,7 +47,6 @@ public class ThemeManager {
             return;
         } catch (Exception ignored) {}
 
-        // Manual fallback
         try { UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName()); }
         catch (Exception ignored) {}
 

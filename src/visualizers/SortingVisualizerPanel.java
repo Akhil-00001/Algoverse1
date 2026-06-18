@@ -57,7 +57,7 @@ public class SortingVisualizerPanel extends JPanel implements AlgorithmModule {
         infoPanel = new AlgorithmInfoPanel();
         add(infoPanel, BorderLayout.EAST);
 
-        generateRandomArray(40);
+        generateRandomArray(20);
     }
     
     @Override
@@ -72,9 +72,6 @@ public class SortingVisualizerPanel extends JPanel implements AlgorithmModule {
         resetSort();
     }
 
-    // ──────────────────────────────────────────────────────────────────────────
-    // UI construction
-    // ──────────────────────────────────────────────────────────────────────────
 
     private JPanel buildHeader() {
         JPanel p = new JPanel(new BorderLayout(12, 0));
@@ -103,7 +100,6 @@ public class SortingVisualizerPanel extends JPanel implements AlgorithmModule {
         wrap.setOpaque(false);
         wrap.add(canvas, BorderLayout.CENTER);
 
-        // Stats row below canvas
         JPanel stats = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 4));
         stats.setOpaque(false);
         statusLabel = label("Ready");
@@ -121,14 +117,13 @@ public class SortingVisualizerPanel extends JPanel implements AlgorithmModule {
         p.setOpaque(false);
         p.setBorder(BorderFactory.createEmptyBorder(12, 0, 0, 0));
 
-        // Row 1: buttons + speed
         JPanel btnRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
         btnRow.setOpaque(false);
 
-        startBtn = new RoundedButton("▶ Start");
-        pauseBtn = new RoundedButton("⏸ Pause", RoundedButton.Style.SECONDARY);
-        resetBtn = new RoundedButton("↺ Reset",  RoundedButton.Style.SECONDARY);
-        stepBtn  = new RoundedButton("▸ Step",   RoundedButton.Style.GHOST);
+        startBtn = new RoundedButton(" Start");
+        pauseBtn = new RoundedButton(" Pause", RoundedButton.Style.SECONDARY);
+        resetBtn = new RoundedButton(" Reset",  RoundedButton.Style.SECONDARY);
+        stepBtn  = new RoundedButton(" Step",   RoundedButton.Style.GHOST);
 
         startBtn.addActionListener(e -> startSort());
         pauseBtn.addActionListener(e -> togglePause());
@@ -147,7 +142,6 @@ public class SortingVisualizerPanel extends JPanel implements AlgorithmModule {
         btnRow.add(Box.createHorizontalStrut(16));
         btnRow.add(speedLbl); btnRow.add(speedSlider);
 
-        // Row 2: manual input
         JPanel inputRow = new JPanel(new FlowLayout(FlowLayout.LEFT, 8, 0));
         inputRow.setOpaque(false);
 
@@ -164,7 +158,7 @@ public class SortingVisualizerPanel extends JPanel implements AlgorithmModule {
         RoundedButton setBtn    = new RoundedButton("Set Array",   RoundedButton.Style.SECONDARY);
         RoundedButton randBtn   = new RoundedButton("Randomise",   RoundedButton.Style.SECONDARY);
         setBtn.addActionListener(e  -> parseInputArray());
-        randBtn.addActionListener(e -> { generateRandomArray(40); resetSort(); });
+        randBtn.addActionListener(e -> { generateRandomArray(20); resetSort(); });
 
         JLabel hint = new JLabel("Custom input:");
         hint.setForeground(ThemeManager.TEXT_SECONDARY);
@@ -177,9 +171,6 @@ public class SortingVisualizerPanel extends JPanel implements AlgorithmModule {
         return p;
     }
 
-    // ──────────────────────────────────────────────────────────────────────────
-    // Drawing
-    // ──────────────────────────────────────────────────────────────────────────
 
     private void drawBars(Graphics2D g2) {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -217,7 +208,6 @@ public class SortingVisualizerPanel extends JPanel implements AlgorithmModule {
             g2.setPaint(new GradientPaint(bx, by, c.brighter(), bx, ch, c.darker()));
             g2.fillRoundRect(bx, by, Math.max(1, (int)bw - 1), bh, 4, 4);
 
-            // Value label for small arrays
             if (n <= 25 && bh > 18) {
                 g2.setColor(Color.WHITE);
                 g2.setFont(ThemeManager.FONT_SMALL.deriveFont(10f));
@@ -234,9 +224,6 @@ public class SortingVisualizerPanel extends JPanel implements AlgorithmModule {
         return s;
     }
 
-    // ──────────────────────────────────────────────────────────────────────────
-    // Sort step generators
-    // ──────────────────────────────────────────────────────────────────────────
 
     private void generateSteps() {
         steps.clear();
@@ -251,7 +238,6 @@ public class SortingVisualizerPanel extends JPanel implements AlgorithmModule {
             case "Quick Sort"     -> quickSortSteps(arr, 0, arr.length - 1, new TreeSet<>());
             case "Heap Sort"      -> heapSort(arr);
         }
-        // Mark all sorted at end
         int[] all = new int[arr.length];
         for (int i = 0; i < all.length; i++) all[i] = i;
         steps.add(new Step(arr, new int[0], new int[0], all, -1, "Sorted!"));
@@ -385,9 +371,6 @@ public class SortingVisualizerPanel extends JPanel implements AlgorithmModule {
         }
     }
 
-    // ──────────────────────────────────────────────────────────────────────────
-    // Control logic
-    // ──────────────────────────────────────────────────────────────────────────
 
     private void startSort() {
         if (timer != null && timer.isRunning()) return;
@@ -475,7 +458,6 @@ public class SortingVisualizerPanel extends JPanel implements AlgorithmModule {
         }
     }
 
-    // ── Helpers ───────────────────────────────────────────────────────────────
 
     private JLabel label(String text) {
         JLabel l = new JLabel(text);

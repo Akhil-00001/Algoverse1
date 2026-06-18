@@ -123,7 +123,6 @@ public class RegisterPanel extends JPanel {
         }
     }
 
-    // ── Helpers ───────────────────────────────────────────────────────────────
 
     private JTextField styledField(String hint) {
         JTextField f = new JTextField();

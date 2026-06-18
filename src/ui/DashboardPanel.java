@@ -7,7 +7,7 @@ import managers.SessionManager;
 import managers.UserManager;
 import models.User;
 import ui.components.*;
-import utils.ThemeManager;
+import utils.ThemeManager; 
 
 
 public class DashboardPanel extends JPanel {
@@ -16,7 +16,6 @@ public class DashboardPanel extends JPanel {
 
     private QuickStartListener listener;
 
-    // Updatable widgets
     private StatsCard xpCard, levelCard, streakCard, completedCard;
     private AnimatedProgressBar xpBar;
     private JLabel xpBarLabel;
@@ -28,7 +27,6 @@ public class DashboardPanel extends JPanel {
         setLayout(new BorderLayout(0, 0));
         setBorder(BorderFactory.createEmptyBorder(28, 28, 28, 28));
 
-        // ── Header ─────────────────────────────────────────────────────────
         JPanel header = new JPanel(new BorderLayout());
         header.setOpaque(false);
 
@@ -44,11 +42,10 @@ public class DashboardPanel extends JPanel {
         header.add(title, BorderLayout.WEST);
         header.add(date, BorderLayout.EAST);
 
-        // ── Stats Cards ────────────────────────────────────────────────────
-        xpCard        = new StatsCard("⚡", "Total XP",        "0",  ThemeManager.ACCENT);
-        levelCard     = new StatsCard("🎖", "Level",           "1",  ThemeManager.ACCENT_YELLOW);
-        streakCard    = new StatsCard("🔥", "Day Streak",      "0",  ThemeManager.ACCENT_ORANGE);
-        completedCard = new StatsCard("✅", "Algorithms Done", "0",  ThemeManager.ACCENT_GREEN);
+        xpCard        = new StatsCard("Total XP",        "0",  ThemeManager.ACCENT);
+        levelCard     = new StatsCard("Level",           "1",  ThemeManager.ACCENT_YELLOW);
+        streakCard    = new StatsCard("Day Streak",      "0",  ThemeManager.ACCENT_ORANGE);
+        completedCard = new StatsCard("Algorithms Done", "0",  ThemeManager.ACCENT_GREEN);
 
         JPanel cardsPanel = new JPanel(new GridLayout(1, 4, 14, 0));
         cardsPanel.setOpaque(false);
@@ -57,7 +54,6 @@ public class DashboardPanel extends JPanel {
         cardsPanel.add(streakCard);
         cardsPanel.add(completedCard);
 
-        // ── XP Progress bar ────────────────────────────────────────────────
         RoundedPanel xpSection = new RoundedPanel(ThemeManager.BG_CARD, 14);
         xpSection.withBorder(ThemeManager.BORDER);
         xpSection.setLayout(new BorderLayout(0, 10));
@@ -83,7 +79,6 @@ public class DashboardPanel extends JPanel {
         xpSection.add(xpHeader, BorderLayout.NORTH);
         xpSection.add(xpBar, BorderLayout.CENTER);
 
-        // ── Quick Start ────────────────────────────────────────────────────
         RoundedPanel quickPanel = new RoundedPanel(ThemeManager.BG_CARD, 14);
         quickPanel.withBorder(ThemeManager.BORDER);
         quickPanel.setLayout(new BorderLayout(0, 12));
@@ -97,11 +92,11 @@ public class DashboardPanel extends JPanel {
         btnRow.setOpaque(false);
 
         String[][] modules = {
-            {"📊 Sorting",     "SORTING"},
-            {"🗺 Pathfinding", "PATHFINDING"},
-            {"🔀 Divide",      "DIVIDE"},
-            {"🎮 Greedy",      "GREEDY"},
-            {"🧩 DP Game",     "DP"},
+            {" Sorting",     "SORTING"},
+            {" Pathfinding", "PATHFINDING"},
+            {" Divide",      "DIVIDE"},
+            {" Greedy",      "GREEDY"},
+            {" DP Game",     "DP"},
         };
         for (String[] m : modules) {
             RoundedButton btn = new RoundedButton(m[0], RoundedButton.Style.SECONDARY);
@@ -114,7 +109,6 @@ public class DashboardPanel extends JPanel {
         quickPanel.add(qlTitle, BorderLayout.NORTH);
         quickPanel.add(btnRow, BorderLayout.CENTER);
 
-        // ── Mini Leaderboard ───────────────────────────────────────────────
         RoundedPanel lbPanel = new RoundedPanel(ThemeManager.BG_CARD, 14);
         lbPanel.withBorder(ThemeManager.BORDER);
         lbPanel.setLayout(new BorderLayout(0, 8));
@@ -131,10 +125,8 @@ public class DashboardPanel extends JPanel {
         lbPanel.add(lbTitle, BorderLayout.NORTH);
         lbPanel.add(leaderMini, BorderLayout.CENTER);
 
-        // ── Achievements strip ─────────────────────────────────────────────
         RoundedPanel achPanel = buildAchievementsPanel();
 
-        // ── Layout assembly ────────────────────────────────────────────────
         JPanel topRow = new JPanel(new BorderLayout(14, 0));
         topRow.setOpaque(false);
         topRow.add(xpSection, BorderLayout.CENTER);
@@ -167,7 +159,6 @@ public class DashboardPanel extends JPanel {
         add(scroll, BorderLayout.CENTER);
     }
 
-    // ── Achievements Panel ────────────────────────────────────────────────────
 
     private RoundedPanel buildAchievementsPanel() {
         RoundedPanel p = new RoundedPanel(ThemeManager.BG_CARD, 14);
@@ -210,7 +201,6 @@ public class DashboardPanel extends JPanel {
         return p;
     }
 
-    // ── Public refresh ────────────────────────────────────────────────────────
 
     
     public void refresh() {
@@ -225,7 +215,6 @@ public class DashboardPanel extends JPanel {
         xpBar.setProgress(u.getLevelProgress());
         xpBarLabel.setText(u.getXpInCurrentLevel() + " / " + u.getXpForNextLevel() + " XP");
 
-        // Mini leaderboard
         leaderMini.removeAll();
         List<User> top = UserManager.getInstance().getLeaderboard();
         int rank = 1;

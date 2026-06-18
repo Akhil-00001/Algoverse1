@@ -77,7 +77,6 @@ public class SidebarPanel extends JPanel {
             navPanel.add(Box.createVerticalStrut(4));
         }
         
-        // ── Algorithm Options ────────────────────────────────────────────────
         algoOptionsPanel = new JPanel(new BorderLayout(0, 6));
         algoOptionsPanel.setOpaque(false);
         algoOptionsPanel.setBorder(BorderFactory.createEmptyBorder(20, 16, 10, 16));
@@ -102,7 +101,6 @@ public class SidebarPanel extends JPanel {
         
         navPanel.add(algoOptionsPanel);
 
-        // ── User Card ────────────────────────────────────────────────────────
         JPanel userCard = new JPanel(new BorderLayout(8, 2));
         userCard.setOpaque(false);
         userCard.setBorder(BorderFactory.createEmptyBorder(10, 14, 14, 14));
@@ -162,11 +160,9 @@ public class SidebarPanel extends JPanel {
         }}, BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
 
-        // ── Right border line ────────────────────────────────────────────────
         setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, ThemeManager.BORDER));
     }
 
-    // ── Navigation button factory ─────────────────────────────────────────────
 
     private JButton createNavButton(String icon, String label, String panel) {
         JButton btn = new JButton(icon + "  " + label) {
@@ -230,7 +226,7 @@ public class SidebarPanel extends JPanel {
             algoOptionsPanel.setVisible(false);
             algoSelectListener = null;
         } else {
-            algoSelectListener = null; // Temporarily detach to avoid firing on populate
+            algoSelectListener = null;
             algoBox.removeAllItems();
             for (String opt : options) {
                 algoBox.addItem(opt);

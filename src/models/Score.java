@@ -4,12 +4,7 @@ import utils.FileUtil;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * Records one algorithm completion event.
- *
- * Format:
- *   userId | algorithmId | score | timeTakenSeconds | completedAt
- */
+
 public class Score {
 
     private static final DateTimeFormatter FMT =
@@ -31,7 +26,6 @@ public class Score {
         this.completedAt     = LocalDateTime.now().format(FMT);
     }
 
-    // ── Serialisation ────────────────────────────────────────────────────────
 
     public String serialize() {
         return FileUtil.join(userId, algorithmId,
@@ -42,7 +36,7 @@ public class Score {
     public static Score deserialize(String line) {
         if (line == null || line.isBlank()) return null;
         String[] p = FileUtil.split(line);
-        if (p.length < 5) return null;
+        if (p.length < 5) return null; 
         Score s = new Score();
         s.userId      = p[0];
         s.algorithmId = p[1];
@@ -54,7 +48,6 @@ public class Score {
         return s;
     }
 
-    // ── Getters ──────────────────────────────────────────────────────────────
 
     public String getUserId()          { return userId; }
     public String getAlgorithmId()     { return algorithmId; }

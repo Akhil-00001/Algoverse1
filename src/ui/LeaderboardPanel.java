@@ -21,7 +21,6 @@ public class LeaderboardPanel extends JPanel {
         setLayout(new BorderLayout(0, 0));
         setBorder(BorderFactory.createEmptyBorder(28, 28, 28, 28));
 
-        // ── Header ──────────────────────────────────────────────────────────
         titleLabel = new JLabel("🏆 Leaderboard");
         titleLabel.setFont(ThemeManager.FONT_TITLE);
         titleLabel.setForeground(ThemeManager.TEXT_PRIMARY);
@@ -42,7 +41,6 @@ public class LeaderboardPanel extends JPanel {
         header.add(hLeft, BorderLayout.WEST);
         header.add(refreshBtn, BorderLayout.EAST);
 
-        // ── Table ────────────────────────────────────────────────────────────
         String[] cols = {"#", "Player", "Level", "XP", "Algorithms"};
         model = new DefaultTableModel(cols, 0) {
             @Override public boolean isCellEditable(int r, int c) { return false; }
@@ -88,13 +86,11 @@ public class LeaderboardPanel extends JPanel {
         table.getTableHeader().setBorder(
                 BorderFactory.createMatteBorder(0, 0, 1, 0, ThemeManager.BORDER));
 
-        // Column widths
         int[] widths = {50, 220, 80, 100, 120};
         for (int i = 0; i < widths.length; i++) {
             table.getColumnModel().getColumn(i).setPreferredWidth(widths[i]);
         }
 
-        // Centre columns except username
         DefaultTableCellRenderer centre = new DefaultTableCellRenderer();
         centre.setHorizontalAlignment(SwingConstants.CENTER);
         for (int i : new int[]{0, 2, 3, 4}) {
@@ -106,7 +102,6 @@ public class LeaderboardPanel extends JPanel {
         scroll.getViewport().setBackground(ThemeManager.BG_SECONDARY);
         scroll.setBorder(BorderFactory.createLineBorder(ThemeManager.BORDER, 1));
 
-        // ── Medals legend ─────────────────────────────────────────────────────
         JPanel legend = new JPanel(new FlowLayout(FlowLayout.LEFT, 16, 4));
         legend.setOpaque(false);
         for (String[] item : new String[][]{{"🥇","1st"},{"🥈","2nd"},{"🥉","3rd"},

@@ -24,24 +24,22 @@ public class PathfindingVisualizerPanel extends JPanel implements AlgorithmModul
     private static final int PATH    = 6;
 
     private static final Color[] CELL_COLORS = {
-        ThemeManager.BG_SURFACE,               // EMPTY
-        new Color(0x2A2A5A),                   // WALL
-        ThemeManager.ACCENT_GREEN,             // START
-        ThemeManager.ACCENT_PINK,              // END
-        new Color(0x38F9D7, false),            // VISITED  -- cyan tint
-        ThemeManager.ACCENT_YELLOW,            // FRONTIER
-        ThemeManager.ACCENT,                   // PATH
+        ThemeManager.BG_SURFACE,           
+        new Color(0x2A2A5A),              
+        ThemeManager.ACCENT_GREEN,         
+        ThemeManager.ACCENT_PINK,        
+        new Color(0x38F9D7, false),       
+        ThemeManager.ACCENT_YELLOW,           
+        ThemeManager.ACCENT,              
     };
 
     static { CELL_COLORS[4] = new Color(56, 180, 200, 180); }
 
-    // ── Grid ──────────────────────────────────────────────────────────────────
     private static final int ROWS = 22, COLS = 42;
     private final int[][] grid = new int[ROWS][COLS];
     private int startR = 5,  startC = 5;
     private int endR   = 16, endC   = 36;
 
-    // ── Algorithm state ───────────────────────────────────────────────────────
     private final Queue<int[]>    frontier  = new LinkedList<>();
     private final Map<String,String> cameFrom = new HashMap<>();
     private boolean running = false, done = false;
@@ -88,9 +86,6 @@ public class PathfindingVisualizerPanel extends JPanel implements AlgorithmModul
         gridCanvas.repaint();
     }
 
-    // ──────────────────────────────────────────────────────────────────────────
-    // Grid canvas
-    // ──────────────────────────────────────────────────────────────────────────
 
     private class GridCanvas extends JPanel {
         GridCanvas() {
@@ -126,7 +121,6 @@ public class PathfindingVisualizerPanel extends JPanel implements AlgorithmModul
                     }
                 }
             }
-            // Grid lines
             g2.setColor(ThemeManager.BORDER);
             for (int r = 0; r <= ROWS; r++) g2.drawLine(0, r * ch, COLS * cw, r * ch);
             for (int c = 0; c <= COLS; c++) g2.drawLine(c * cw, 0, c * cw, ROWS * ch);
@@ -142,28 +136,23 @@ public class PathfindingVisualizerPanel extends JPanel implements AlgorithmModul
         if (r < 0 || r >= ROWS || c < 0 || c >= COLS) return;
 
         if (SwingUtilities.isRightMouseButton(e)) {
-            // Right click cycles: empty → wall → start → end
             grid[r][c] = (grid[r][c] + 1) % 4;
             if (grid[r][c] == START) { grid[startR][startC] = EMPTY; startR = r; startC = c; }
             if (grid[r][c] == END)   { grid[endR][endC]     = EMPTY; endR   = r; endC   = c; }
         } else {
-            // Left click toggles wall
             if (grid[r][c] == EMPTY) grid[r][c] = WALL;
             else if (grid[r][c] == WALL) grid[r][c] = EMPTY;
         }
         gridCanvas.repaint();
     }
 
-    // ──────────────────────────────────────────────────────────────────────────
-    // UI construction
-    // ──────────────────────────────────────────────────────────────────────────
 
     private JPanel buildHeader() {
         JPanel p = new JPanel(new BorderLayout(12, 0));
         p.setOpaque(false);
         p.setBorder(BorderFactory.createEmptyBorder(0, 0, 8, 0));
 
-        JLabel title = new JLabel("🗺 Pathfinding Visualizer");
+        JLabel title = new JLabel(" Pathfinding Visualizer");
         title.setFont(ThemeManager.FONT_LARGE);
         title.setForeground(ThemeManager.TEXT_PRIMARY);
 
@@ -202,9 +191,9 @@ public class PathfindingVisualizerPanel extends JPanel implements AlgorithmModul
         JPanel p = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
         p.setOpaque(false);
 
-        startBtn = new RoundedButton("▶ Find Path");
-        resetBtn = new RoundedButton("↺ Reset",    RoundedButton.Style.SECONDARY);
-        clearBtn = new RoundedButton("✕ Clear",    RoundedButton.Style.SECONDARY);
+        startBtn = new RoundedButton(" Find Path");
+        resetBtn = new RoundedButton(" Reset",    RoundedButton.Style.SECONDARY);
+        clearBtn = new RoundedButton(" Clear",    RoundedButton.Style.SECONDARY);
 
         startBtn.addActionListener(e -> startSearch());
         resetBtn.addActionListener(e -> { resetSearch(); initGrid(); gridCanvas.repaint(); });
@@ -221,8 +210,7 @@ public class PathfindingVisualizerPanel extends JPanel implements AlgorithmModul
         p.add(Box.createHorizontalStrut(12));
         p.add(speedLbl); p.add(speed);
 
-        // Add maze generation button
-        RoundedButton mazeBtn = new RoundedButton("🎲 Random Maze", RoundedButton.Style.GHOST);
+        RoundedButton mazeBtn = new RoundedButton(" Random Maze", RoundedButton.Style.GHOST);
         mazeBtn.addActionListener(e -> { resetSearch(); generateMaze(); gridCanvas.repaint(); });
         p.add(mazeBtn);
 
@@ -236,9 +224,6 @@ public class PathfindingVisualizerPanel extends JPanel implements AlgorithmModul
         return p;
     }
 
-    // ──────────────────────────────────────────────────────────────────────────
-    // Algorithm implementations
-    // ──────────────────────────────────────────────────────────────────────────
 
     private void startSearch() {
         if (running) return;
@@ -256,7 +241,7 @@ public class PathfindingVisualizerPanel extends JPanel implements AlgorithmModul
         if ("Dijkstra".equals(algo) || "A*".equals(algo)) {
             initDist();
         }
-        frontier.offer(new int[]{startR, startC, 0}); // {row, col, cost}
+        frontier.offer(new int[]{startR, startC, 0}); 
         grid[startR][startC] = START;
         timer.start();
     }
@@ -265,7 +250,7 @@ public class PathfindingVisualizerPanel extends JPanel implements AlgorithmModul
         if (frontier.isEmpty() || done) {
             timer.stop();
             running = false;
-            if (!done) statusLabel.setText("❌ No path found!");
+            if (!done) statusLabel.setText(" No path found!");
             return;
         }
 
@@ -274,16 +259,14 @@ public class PathfindingVisualizerPanel extends JPanel implements AlgorithmModul
         int[] cur;
 
         if ("DFS".equals(algo)) {
-            // Use stack behaviour (poll from front of priority queue acting as stack)
             cur = ((LinkedList<int[]>) frontier).peekLast();
             ((LinkedList<int[]>) frontier).removeLast();
         } else if ("Dijkstra".equals(algo)) {
-            // Pick lowest cost
             cur = pickLowestCost();
         } else if ("A*".equals(algo)) {
             cur = pickLowestFScore();
         } else {
-            cur = frontier.poll(); // BFS
+            cur = frontier.poll(); 
         }
 
         if (cur == null) return;
@@ -364,9 +347,6 @@ public class PathfindingVisualizerPanel extends JPanel implements AlgorithmModul
         return len;
     }
 
-    // ──────────────────────────────────────────────────────────────────────────
-    // Helpers
-    // ──────────────────────────────────────────────────────────────────────────
 
     private void initGrid() {
         for (int[] row : grid) Arrays.fill(row, EMPTY);

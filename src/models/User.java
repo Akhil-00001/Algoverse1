@@ -6,17 +6,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-/**
- * Represents an AlgoVerse user account.
- * Serialised to a single pipe-delimited line in data/users.txt
- *
- * Format:
- *   id | username | passwordHash | xp | level | streak |
- *   completedAlgos (csv) | lastLogin | rememberToken
- */
+
 public class User {
 
-    // ── Stored fields ────────────────────────────────────────────────────────
     private String id;
     private String username;
     private String passwordHash;
@@ -27,16 +19,14 @@ public class User {
     private String lastLogin;
     private String rememberToken;
 
-    // ── XP thresholds (level = floor(xp/XP_PER_LEVEL) + 1) ─────────────────
     public static final int XP_PER_LEVEL = 500;
 
-    // ── Constructors ─────────────────────────────────────────────────────────
 
     public User() {
         completedAlgorithms = new ArrayList<>();
     }
 
-    /** Create a brand-new user (registration). */
+    
     public User(String username, String passwordHash) {
         this.id            = UUID.randomUUID().toString().replace("-", "").substring(0, 8);
         this.username      = username;
@@ -49,7 +39,6 @@ public class User {
         this.rememberToken = "";
     }
 
-    // ── Serialisation ────────────────────────────────────────────────────────
 
     public String serialize() {
         String algos = completedAlgorithms.isEmpty() ? "" :
@@ -73,7 +62,7 @@ public class User {
             u.xp     = Integer.parseInt(p[3]);
             u.level  = Integer.parseInt(p[4]);
             u.streak = Integer.parseInt(p[5]);
-        } catch (NumberFormatException e) { /* default 0 */ }
+        } catch (NumberFormatException e) {  }
         u.completedAlgorithms = new ArrayList<>();
         if (!p[6].isEmpty()) {
             u.completedAlgorithms.addAll(Arrays.asList(p[6].split(",")));
@@ -83,9 +72,8 @@ public class User {
         return u;
     }
 
-    // ── Business logic ───────────────────────────────────────────────────────
 
-    /** Add XP and auto-adjust level. Returns true if levelled up. */
+    
     public boolean addXP(int amount) {
         int prevLevel = this.level;
         this.xp      += amount;
@@ -93,7 +81,7 @@ public class User {
         return this.level > prevLevel;
     }
 
-    /** Mark an algorithm as completed (idempotent). Returns true if new. */
+    
     public boolean completeAlgorithm(String algoId) {
         if (!completedAlgorithms.contains(algoId)) {
             completedAlgorithms.add(algoId);
@@ -106,22 +94,21 @@ public class User {
         return completedAlgorithms.contains(algoId);
     }
 
-    /** XP earned within the current level (for progress bar). */
+    
     public int getXpInCurrentLevel() {
         return xp % XP_PER_LEVEL;
     }
 
-    /** XP required to reach next level. */
+    
     public int getXpForNextLevel() {
         return XP_PER_LEVEL;
     }
 
-    /** Progress 0.0–1.0 within current level. */
+    
     public float getLevelProgress() {
         return (float) getXpInCurrentLevel() / XP_PER_LEVEL;
     }
 
-    // ── Getters ──────────────────────────────────────────────────────────────
 
     public String getId()            { return id; }
     public String getUsername()      { return username; }
@@ -133,7 +120,6 @@ public class User {
     public String getLastLogin()     { return lastLogin; }
     public String getRememberToken() { return rememberToken; }
 
-    // ── Setters ──────────────────────────────────────────────────────────────
 
     public void setXp(int xp)                    { this.xp = xp; }
     public void setLevel(int level)              { this.level = level; }

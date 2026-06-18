@@ -25,7 +25,6 @@ public class RoundedPanel extends JPanel {
         setOpaque(false);
     }
 
-    // ── Fluent setters ────────────────────────────────────────────────────────
 
     public RoundedPanel withGradient(Color c1, Color c2, boolean horizontal) {
         this.bgColor       = c1;
@@ -46,10 +45,10 @@ public class RoundedPanel extends JPanel {
     }
 
     public void setArc(int arc)          { this.arc = arc; repaint(); }
+
     public void setBgColor(Color c)      { this.bgColor = c; repaint(); }
     public void setBorderColor(Color c)  { this.borderColor = c; repaint(); }
 
-    // ── Paint ─────────────────────────────────────────────────────────────────
 
     @Override
     protected void paintComponent(Graphics g) {

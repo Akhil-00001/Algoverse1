@@ -15,16 +15,13 @@ import visualizers.SortingVisualizerPanel;
 
 public class MainFrame extends JFrame {
 
-    // ── Card names ────────────────────────────────────────────────────────────
     private static final String CARD_LOGIN    = "LOGIN";
     private static final String CARD_REGISTER = "REGISTER";
     private static final String CARD_APP      = "APP";
 
-    // ── Root ──────────────────────────────────────────────────────────────────
     private final CardLayout rootLayout = new CardLayout();
     private final JPanel     rootPanel  = new JPanel(rootLayout);
 
-    // ── App shell ─────────────────────────────────────────────────────────────
     private final CardLayout contentLayout = new CardLayout();
     private final JPanel     contentPanel  = new JPanel(contentLayout);
     private SidebarPanel     sidebar;
@@ -39,7 +36,6 @@ public class MainFrame extends JFrame {
         setPreferredSize(new Dimension(1280, 760));
         setLocationRelativeTo(null);
 
-        // App icon text (Unicode)
         setIconImage(createTextIcon("⚡"));
 
         buildRootPanel();
@@ -47,7 +43,6 @@ public class MainFrame extends JFrame {
         pack();
         setLocationRelativeTo(null);
 
-        // Auto-login if remember-me token found
         if (SessionManager.getInstance().isLoggedIn()) {
             showApp();
         } else {
@@ -55,24 +50,20 @@ public class MainFrame extends JFrame {
         }
     }
 
-    // ── Build panels ──────────────────────────────────────────────────────────
 
     private void buildRootPanel() {
         rootPanel.setBackground(ThemeManager.BG_PRIMARY);
 
-        // Login
         LoginPanel loginPanel = new LoginPanel(
             this::showApp,
             () -> rootLayout.show(rootPanel, CARD_REGISTER)
         );
 
-        // Register
         RegisterPanel registerPanel = new RegisterPanel(
             () -> rootLayout.show(rootPanel, CARD_LOGIN),
             () -> rootLayout.show(rootPanel, CARD_LOGIN)
         );
 
-        // Main app shell
         JPanel appShell = buildAppShell();
 
         rootPanel.add(loginPanel,    CARD_LOGIN);
@@ -81,10 +72,8 @@ public class MainFrame extends JFrame {
     }
 
     private JPanel buildAppShell() {
-        // ── Sidebar ────────────────────────────────────────────────────────
         sidebar = new SidebarPanel(panel -> navigate(panel));
 
-        // ── Content panels ─────────────────────────────────────────────────
         contentPanel.setBackground(ThemeManager.BG_PRIMARY);
 
         dashboardPanel   = new DashboardPanel(panel -> navigate(panel));
@@ -98,7 +87,6 @@ public class MainFrame extends JFrame {
         addPanel("DP", new DPGamePanel());
         addPanel("LEADERBOARD", leaderboardPanel);
 
-        // ── Shell ──────────────────────────────────────────────────────────
         JPanel shell = new JPanel(new BorderLayout());
         shell.setBackground(ThemeManager.BG_PRIMARY);
         shell.add(sidebar,      BorderLayout.WEST);
@@ -106,7 +94,6 @@ public class MainFrame extends JFrame {
         return shell;
     }
 
-    // ── Navigation ────────────────────────────────────────────────────────────
 
     private void addPanel(String name, Component panel) {
         panels.put(name, panel);
@@ -118,7 +105,6 @@ public class MainFrame extends JFrame {
             rootLayout.show(rootPanel, CARD_LOGIN);
             return;
         }
-        contentLayout.show(contentPanel, panel);
         sidebar.setActivePanel(panel);
 
         Component active = panels.get(panel);
@@ -128,7 +114,6 @@ public class MainFrame extends JFrame {
             sidebar.setAlgorithmOptions(null, null);
         }
 
-        // Refresh data-dependent panels
         if ("DASHBOARD".equals(panel))   dashboardPanel.refresh();
         if ("LEADERBOARD".equals(panel)) leaderboardPanel.refresh();
     }
@@ -139,7 +124,6 @@ public class MainFrame extends JFrame {
         dashboardPanel.refresh();
     }
 
-    // ── Icon helper ───────────────────────────────────────────────────────────
 
     private Image createTextIcon(String text) {
         int size = 32;

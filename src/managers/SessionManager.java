@@ -21,7 +21,6 @@ public class SessionManager {
 
     public void logout() {
         if (currentUser != null) {
-            // Clear remember-me token on explicit logout
             currentUser.setRememberToken("");
             UserManager.getInstance().updateUser(currentUser);
         }
